@@ -100,9 +100,8 @@ Uint8List varIntWriter(int length) {
     return writer.toBytes();
   }
 
-  // if (length < 0xFFFFFFFFFFFFFFFF) {
-  if (length < 9007199254740991) {
     //JavaScript Number.MAX_SAFE_INTEGER
+  if (length < 9007199254740991) {
 //            return HEX.decode("FF" + length.toRadixString(16));
 
     writer.writeUint8(255);
@@ -123,8 +122,13 @@ List<int> calcVarInt(int length) {
 
   if (length < 0xFFFFFFFF) return HEX.decode("FE" + length.toRadixString(16));
 
+<<<<<<< HEAD
   // if (length < 0xFFFFFFFFFFFFFFFF) return HEX.decode("FF" + length.toRadixString(16));
   if (length < 9007199254740991) return HEX.decode("FF" + length.toRadixString(16));
+=======
+    // if (length < 0xFFFFFFFFFFFFFFFF) return HEX.decode("FF" + length.toRadixString(16));
+    if (length < 9223372036854775807) return HEX.decode("FF" + length.toRadixString(16));
+>>>>>>> 2bfdd8d (Change 0xFFFFFFFFFFFFFFFF to 0x10000000000000000)
 
   return Uint8List(0);
 }
