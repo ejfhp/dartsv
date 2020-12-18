@@ -103,7 +103,8 @@ Uint8List varIntWriter(int length) {
         return writer.toBytes();
     }
 
-    if (length < 0xFFFFFFFFFFFFFFFF) {
+    // if (length < 0xFFFFFFFFFFFFFFFF) {
+    if (length < 0x10000000000000000) {
 //            return HEX.decode("FF" + length.toRadixString(16));
 
         writer.writeUint8(255);
