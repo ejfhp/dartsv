@@ -104,7 +104,7 @@ Uint8List varIntWriter(int length) {
     }
 
     // if (length < 0xFFFFFFFFFFFFFFFF) {
-    if (length < 0x10000000000000000) {
+    if (length < 9223372036854775807) {
 //            return HEX.decode("FF" + length.toRadixString(16));
 
         writer.writeUint8(255);
@@ -126,7 +126,8 @@ List<int> calcVarInt(int length) {
 
     if (length < 0xFFFFFFFF) return HEX.decode("FE" + length.toRadixString(16));
 
-    if (length < 0xFFFFFFFFFFFFFFFF) return HEX.decode("FF" + length.toRadixString(16));
+    // if (length < 0xFFFFFFFFFFFFFFFF) return HEX.decode("FF" + length.toRadixString(16));
+    if (length < 9223372036854775807) return HEX.decode("FF" + length.toRadixString(16));
 
     return Uint8List(0);
 }
