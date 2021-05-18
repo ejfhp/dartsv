@@ -63,6 +63,7 @@ main() {
       });
     });
   });
+<<<<<<< HEAD
 
   test('should not be able to instantiate private key greater than N', () {
     expect(() => SVPrivateKey.fromBigInt(_domainParams.n), throwsException);
@@ -95,11 +96,46 @@ main() {
     var hex = '96c132224121b509b7d0a16245e957d9192609c5637c6228311287b1be21627a';
     var privateKey = SVPrivateKey.fromHex(hex, NetworkType.MAIN);
 
+=======
+
+  test('should not be able to instantiate private key greater than N', () {
+    expect(() => SVPrivateKey.fromBigInt(_domainParams.n), throwsException);
+  });
+
+  test('should throw an exception if WIF is too long', () {
+    var wifKey = 'L3T1s1TYP9oyhHpXgkyLoJFGniEgkv2Jhi138d7R2yJ9F4QdDU2m';
+    wifKey = wifKey + '1';
+    expect(() => SVPrivateKey.fromWIF(wifKey), throwsException);
+  });
+
+  test('should not be able to instantiate private key WIF because of unknown network byte', () {
+    var wifKey = 'L3T1s1TYP9oyhHpXgkyLoJFGniEgkv2Jhi138d7R2yJ9F4QdDU2m';
+    var modKey = HEX.encode([0xff]) + wifKey.substring(1, wifKey.length);
+    expect(() => SVPrivateKey.fromWIF(modKey), throwsException);
+  });
+
+  test('should not be able to create a zero private key', () {
+    expect(() => SVPrivateKey.fromBigInt(BigInt.zero), throwsException);
+  });
+
+  test('should be able to render private key in WIF format', () {
+    var wifLivenetUncompressed = '5JxgQaFM1FMd38cd14e3mbdxsdSa9iM2BV6DHBYsvGzxkTNQ7Un';
+    var privateKey = SVPrivateKey.fromWIF(wifLivenetUncompressed);
+
+    expect(privateKey.toWIF(), equals(wifLivenetUncompressed));
+  });
+
+  test('should be able to create a mainnet private key', () {
+    var hex = '96c132224121b509b7d0a16245e957d9192609c5637c6228311287b1be21627a';
+    var privateKey = SVPrivateKey.fromHex(hex, NetworkType.MAIN);
+
+>>>>>>> 6bb94a7feb57d35c575d9de4385f66c85dbce6f1
     var wifLivenet = 'L2Gkw3kKJ6N24QcDuH4XDqt9cTqsKTVNDGz1CRZhk9cq4auDUbJy';
     expect(privateKey.toWIF(), equals(wifLivenet));
 //        var wifLivenetUncompressed = '5JxgQaFM1FMd38cd14e3mbdxsdSa9iM2BV6DHBYsvGzxkTNQ7Un';
   });
 
+<<<<<<< HEAD
   test('Assert that our private keys are 256bit', () {
     final _domainParams = ECDomainParameters('secp256k1');
 
@@ -110,6 +146,8 @@ main() {
     }
   });
 
+=======
+>>>>>>> 6bb94a7feb57d35c575d9de4385f66c85dbce6f1
   test('should output this known livenet address correctly', () {
     SVPrivateKey privateKey = SVPrivateKey.fromWIF('L3T1s1TYP9oyhHpXgkyLoJFGniEgkv2Jhi138d7R2yJ9F4QdDU2m');
     Address address = privateKey.toAddress();

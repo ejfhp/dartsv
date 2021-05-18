@@ -101,7 +101,6 @@ Uint8List varIntWriter(int length) {
   }
 
   //JavaScript Number.MAX_SAFE_INTEGER
-  if (length < 9007199254740991) {
 //            return HEX.decode("FF" + length.toRadixString(16));
 
     writer.writeUint8(255);
@@ -122,7 +121,6 @@ List<int> calcVarInt(int length) {
 
   if (length < 0xFFFFFFFF) return HEX.decode("FE" + length.toRadixString(16));
 
-  // if (length < 0xFFFFFFFFFFFFFFFF) return HEX.decode("FF" + length.toRadixString(16));
   if (length < 9007199254740991) return HEX.decode("FF" + length.toRadixString(16));
 
   return Uint8List(0);
