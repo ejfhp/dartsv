@@ -100,7 +100,11 @@ Uint8List varIntWriter(int length) {
     return writer.toBytes();
   }
 
-  //JavaScript Number.MAX_SAFE_INTEGER
+  //In order to make it representable in JavaScript, can you change the value to 0x1FFFFFFFFFFFFF (2^53 - 1),
+  //because it is the highest safe integer in javascript See here.
+  //JavaScript Number.MAX_SAFE_INTEGER = 9007199254740991
+  // if (length < 0xFFFFFFFFFFFFFFFF) {
+  if (length < 9007199254740991) {
 //            return HEX.decode("FF" + length.toRadixString(16));
 
     writer.writeUint8(255);
